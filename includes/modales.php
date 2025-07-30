@@ -57,3 +57,28 @@
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="modalNuevoUsuario" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="POST" action="auth/crear_usuario_asociado.php">
+      <div class="modal-header">
+        <h5 class="modal-title">Nuevo usuario asociado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" class="form-control" required>
+
+        <label class="mt-2">Email:</label>
+        <input type="email" name="email" class="form-control" required>
+
+        <label class="mt-2">Contraseña:</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Crear usuario</button>
+      </div>
+    </form>
+  </div>
+</div>

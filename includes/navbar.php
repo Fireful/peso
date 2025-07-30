@@ -16,9 +16,17 @@
         <!-- Añadiremos más pestañas después -->
       </ul>
 
-      <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#modalAuth">
-  Login / Registro
-</button>
+      <?php if (isset($_SESSION['usuario_id'])): ?>
+  <div class="d-flex align-items-center text-white">
+    <span class="me-3">Hola, <?= htmlspecialchars($_SESSION['usuario_nombre']) ?></span>
+    <a href="auth/logout.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
+  </div>
+<?php else: ?>
+  <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#modalAuth">
+    Login / Registro
+  </button>
+<?php endif; ?>
+
 
     </div>
   </div>
