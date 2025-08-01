@@ -14,6 +14,13 @@
           <a class="nav-link<?= ($pagina === 'peso') ? ' active' : '' ?>" href="index.php?p=peso">Gráfico de peso</a>
         </li>
         <!-- Añadiremos más pestañas después -->
+         <?php if (isset($_SESSION['usuario_id'])): ?>
+        <li class="nav-item">
+          <a class="nav-link<?= ($pagina === 'usuarios') ? ' active' : '' ?>" href="index.php?p=usuarios">Usuarios</a>
+        </li>
+        <?php endif; ?>
+        <li class="nav-item">
+          <a class="nav-link<?= ($pagina === 'historial') ? ' active' : '' ?>" href="index.php?p=historial">Historial</a>
       </ul>
 
       <?php if (isset($_SESSION['usuario_id'])): ?>

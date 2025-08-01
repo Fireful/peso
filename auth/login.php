@@ -1,5 +1,5 @@
 <?php
-require_once '../db.php';
+require_once '../db/db.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Buscar usuario
-	$stmt = $pdo->prepare("SELECT id, nombre, password_hash FROM usuarios WHERE email = ? AND puede_login = TRUE");
+	$stmt = $pdo->prepare("SELECT id, nombre, password_hash, altura FROM usuarios WHERE email = ? AND puede_login = TRUE");
     $stmt->execute([$email]);
     $usuario = $stmt->fetch();
 
@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Guardar sesión
     $_SESSION['usuario_id'] = $usuario['id'];
     $_SESSION['usuario_nombre'] = $usuario['nombre'];
+    $_SESSION['altura'] = $usuario['altura'];
 
     header('Location: ../index.php');
     exit;
