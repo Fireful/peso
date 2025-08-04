@@ -35,12 +35,17 @@ $seleccionado = intval($_GET['usuario_id'] ?? 0);
 
 
 <?php
-if ($seleccionado) {
+$alturas = $alturas ?? [];
+$alt = $pdo->prepare("SELECT altura FROM usuarios WHERE id = ? ");
+$alt->execute([$user]);
+$alturas = $alt->fetchAll(PDO::FETCH_ASSOC);
 
+if ($seleccionado) {
+  
 
   $usuario_id = $_SESSION['usuario_id']; // O como tengas guardado el ID
   $stmt = $pdo->prepare("SELECT fecha, peso, imc FROM peso WHERE usuario_id = ? ORDER BY fecha ASC");
-  $stmt->execute([$usuario_id]);
+  $stmt->execute([$user]);
   $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $fechas = [];

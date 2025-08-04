@@ -87,13 +87,16 @@
 </div>
 
 <!-- Modal peso -->
+ <?php
 
+foreach($alturas as $altura){ ?>
+  
 
 <div class="modal fade" id="modalPeso" tabindex="-1">
   <div class="modal-dialog">
     <form method="post" action="includes/guardar_peso.php" class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Nuevo Registro de Peso Usuario: <?=  $_GET['usuario_id']; ?></h5>
+        <h5 class="modal-title">Nuevo Registro de Peso Usuario: <?=  $_GET['usuario_id']; ?> altura: <?= $alturas[0]['altura'] ?? '' ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
@@ -104,7 +107,7 @@
         <input type="number" name="peso" step="0.1" class="form-control" required>
 
         <label for="altura" class="form-label mt-3">Altura (opcional, en metros):</label>
-        <input type="number" name="altura" id="inputAltura" step="0.01" class="form-control" value="<?= $usuario['altura'] ?? '' ?>" required>
+        <input type="number" name="altura" id="inputAltura" step="0.01" class="form-control" value="<?= $altura['altura'] ?? '' ?>" required>
         <small class="form-text text-muted">Si no se especifica, se usará la altura guardada en tu perfil.</small>
         <label for="grasa_corporal" class="form-label mt-3">Grasa Corporal (%):</label>
         <input type="number" name="grasa_corporal" step="0.1" class="form-control">
@@ -118,3 +121,4 @@
     </form>
   </div>
 </div>
+<?php } ?>
