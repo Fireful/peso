@@ -3,33 +3,27 @@
 use BcMath\Number;
 
 require_once 'db/db.php';
-require_once 'includes/auth_utils.php';
+$usuario_logado=$_SESSION['usuario_id'] ?? null;
+$usuario_elegido = $_GET['usuario_id'] ?? null;
 
-verificarLogin();
+if (!$usuario_logado) {
+  echo "<p class='alert alert-danger'>Acceso no autorizado.</p>";
+  return;
+}
 
-$usuario_id = $_SESSION['usuario_id'];
+
 $stmt = $pdo->prepare("SELECT * FROM peso WHERE usuario_id = ? ORDER BY fecha DESC");
-$stmt->execute([$usuario_id]);
+$stmt->execute([$usuario_elegido]);
 $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Historial de Registros</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+
 <div class="container mt-5">
     <?php
     require_once 'db/db.php';
 
     $usuario_principal = $_SESSION['usuario_id'] ?? null;
-    if (!$usuario_principal) {
-      echo "<p class='text-danger'>Acceso no autorizado.</p>";
-      return;
-    }
+    
 
     // Obtener usuarios asociados
     $stmt = $pdo->prepare("SELECT id, nombre FROM usuarios WHERE creado_por = ? OR id=? ORDER BY nombre");
@@ -51,7 +45,10 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
       </select>
     </form>
-      <p>Datos de <?= htmlspecialchars($usuarios[array_search($seleccion, array_column($usuarios, 'id'))]['nombre']) ?></p>
+<?php if($usuario_elegido){
+
+ ?>
+    <p>Datos de <?= htmlspecialchars($usuarios[array_search($seleccion, array_column($usuarios, 'id'))]['nombre']) ?></p>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -75,6 +72,8 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach ?>
         </tbody>
     </table>
+<?php } else{
+  echo "<p class='alert alert-warning'>Por favor, selecciona un usuario para ver su historial de peso.</p>";
+} ?>
+
 </div>
-</body>
-</html>

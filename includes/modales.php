@@ -87,14 +87,12 @@
 </div>
 
 <!-- Modal peso -->
- <?php
-
-foreach($alturas as $altura){ ?>
   
 
 <div class="modal fade" id="modalPeso" tabindex="-1">
   <div class="modal-dialog">
     <form method="post" action="includes/guardar_peso.php" class="modal-content">
+      <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($_GET['usuario_id'] ?? '') ?>">
       <div class="modal-header">
         <h5 class="modal-title">Nuevo Registro de Peso Usuario: <?=  $_GET['usuario_id']; ?> altura: <?= $alturas[0]['altura'] ?? '' ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -106,9 +104,6 @@ foreach($alturas as $altura){ ?>
         <label for="peso" class="form-label mt-3">Peso (kg):</label>
         <input type="number" name="peso" step="0.1" class="form-control" required>
 
-        <label for="altura" class="form-label mt-3">Altura (opcional, en metros):</label>
-        <input type="number" name="altura" id="inputAltura" step="0.01" class="form-control" value="<?= $altura['altura'] ?? '' ?>" required>
-        <small class="form-text text-muted">Si no se especifica, se usará la altura guardada en tu perfil.</small>
         <label for="grasa_corporal" class="form-label mt-3">Grasa Corporal (%):</label>
         <input type="number" name="grasa_corporal" step="0.1" class="form-control">
         <label for="musculo" class="form-label mt-3">Músculo (%):</label>
@@ -121,4 +116,44 @@ foreach($alturas as $altura){ ?>
     </form>
   </div>
 </div>
-<?php } ?>
+
+<!-- Modal: Crear nuevo objetivo -->
+<div class="modal fade" id="modalCrearObjetivo" tabindex="-1" aria-labelledby="modalCrearObjetivoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="includes/crear_objetivo.php" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCrearObjetivoLabel">Crear nuevo objetivo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <input type="hidden" name="usuario_id" value="<?= $_GET['usuario_id'] ?? '' ?>">
+
+          <input type="hidden" name="tipo" value="Peso">
+
+
+          <div class="mb-3">
+            <label for="valor_objetivo" class="form-label">Valor objetivo</label>
+            <input type="number" step="any" class="form-control" id="valor_objetivo" name="valor_objetivo" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="fecha_limite" class="form-label">Fecha límite</label>
+            <input type="date" class="form-control" id="fecha_limite" name="fecha_limite" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="observaciones" class="form-label">Observaciones (opcional)</label>
+            <textarea class="form-control" id="observaciones" name="observaciones" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar objetivo</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

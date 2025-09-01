@@ -14,7 +14,7 @@ if (empty($_POST['fecha']) || empty($_POST['peso'])) {
 
 require_once __DIR__ . '/../db/db.php'; // Asegúrate de que este archivo existe y conecta bien
 
-$usuario_id = $_SESSION['usuario_id'];
+$usuario_id = $_POST['usuario_id'];
 $fecha = $_POST['fecha'];
 $peso = floatval($_POST['peso']);
 $altura = floatval($_SESSION['altura'] ?? 1.73); // Altura por defecto si no se guarda aún
